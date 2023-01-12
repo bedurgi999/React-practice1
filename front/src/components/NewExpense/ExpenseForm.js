@@ -1,14 +1,13 @@
 import "./ExpenseForm.css";
 import { useState } from "react";
 
-function ExpenseForm({ onSaveExpenseData }) {
+function ExpenseForm({ onSaveExpenseData, onCancel }) {
   const [expense, setExpense] = useState({
     id: "",
     title: "",
     amount: 0,
     date: "",
   });
-
   const expenseChangeHandler = (event) => {
     const { name, value } = event.target;
     setExpense((cur) => {
@@ -23,6 +22,7 @@ function ExpenseForm({ onSaveExpenseData }) {
     onSaveExpenseData({
       ...expense,
       id: Math.random().toString(),
+      amount: +expense.amount,
       date: new Date(expense.date),
     });
     setExpense({
@@ -69,6 +69,9 @@ function ExpenseForm({ onSaveExpenseData }) {
         </div>
       </div>
       <div className="new-expense__actions">
+        <button type="button" onClick={onCancel}>
+          Cancel
+        </button>
         <button type="submit">Add Expense</button>
       </div>
     </form>
